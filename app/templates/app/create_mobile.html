@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% block title %}Create Mobile{% endblock title %}
+{% block content %}
+
+<div class="container mt-5">
+
+    <h1>{% if mobile %}Update{% else %}Create{% endif %} Mobile</h1>
+    <form method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="alert alert-danger my-3">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+        <div class="mb-3">
+            {% for fm in form %}
+                {{fm.label_tag}}</br><small class="text-danger">{{fm.errors|striptags}}</small>{{fm}}</br>
+            {% endfor %} 
+            
+        </div>
+        
+        <button type="submit" class="btn btn-primary">{% if mobile %}Update{% else %}Create{% endif %}</button> <button type="button" class="btn btn-dark" onclick="window.location.href='{% url 'home' %}'">Cancel</button>
+    </form>
+</div>
+{% endblock content %}
